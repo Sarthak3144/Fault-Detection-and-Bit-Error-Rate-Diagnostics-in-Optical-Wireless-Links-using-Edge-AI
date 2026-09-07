@@ -26,9 +26,9 @@ An autonomous, point-to-point Free-Space Optical Wireless Communication (OWC) te
 ## Diagnostic Features & Operating Conditions**
 
 ### Input Features (Telemetry Vector)**
-1. Signal Voltage ($V$):** Direct peak DC voltage proportional to received optical intensity.
-2. Bit Error Rate ($\text{BER}$):** Quantifies communication reliability by comparing recovered bits against the known payload.
-3. Signal-to-Noise Ratio ($\text{SNR}$): Ratio of peak AC signal amplitude to background noise floor ($20 \log_{10}(V_{\text{signal}} / V_{\text{noise}})$).
+1. Signal Voltage (V): Direct peak DC voltage proportional to received optical intensity.
+2. Bit Error Rate ({BER}): Quantifies communication reliability by comparing recovered bits against the known payload.
+3. Signal-to-Noise Ratio ({SNR}): Ratio of peak AC signal amplitude to background noise floor ($20 \log_{10}(V_{\text{signal}} / V_{\text{noise}})$).
 4. **Ambient Light ($\text{Lux}$): Ambient baseline illuminance derived from photodiode DC offset calibration.
 
 ### Target Diagnostic Classes
@@ -54,7 +54,7 @@ The dataset consists of 395 empirical telemetry samples** collected directly fro
 
 ## **Hardware Setup & Components**
 
-* Transmitter Node: ESP32 Board, 650 nm HW-493 Laser Module, 2N2222 NPN Transistor, $1\text{ k}\Omega$ Base Resistor.
+* Transmitter Node: ESP32 Board, 650 nm HW-493 Laser Module, 2N2222 NPN Transistor, 1kohm Base Resistor.
 * Receiver Node: ESP32-S3 Microcontroller, BPW34 PIN Photodiode, LM358 Op-Amp Signal Conditioning Circuit.
 * Transmission Specifications: 1000 bit/s OOK with NRZ-L line coding, 100 ms sync pulse, 20 ms guard interval, majority voting bit recovery (5 samples per bit across 60% central window).
 
