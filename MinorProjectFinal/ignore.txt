@@ -1,0 +1,58 @@
+CHANGES
+
+
+| Original proposal                                               | Current implementation                                                                               |
+| --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| **DHT22 sensor** used as a data source                          | **Removed completely**                                                                               |
+| Transmit actual sensor/telemetry data                           | Transmit a **known fixed payload** (currently the story text)                                        |
+| Intended communication with synchronization/preamble            | Simplified **100 ms sync pulse + guard interval**                                                    |
+| More complicated packet/data framing was considered             | **Simple NRZ-L**: 1 = laser ON, 0 = laser OFF                                                        |
+| Originally discussed **500 bps**                                | Current code uses **1000 bps**                                                                       |
+| Originally planned around a **5000-bit deterministic sequence** | Current implementation uses a **known text payload**, converted to bits                              |         
+| Fault diagnosis based on link behavior                          | Still the core objective                                                                             |
+| ML features: signal voltage, BER, SNR, ambient light            | **Unchanged — exactly these four**                                                                   |
+| Fault classes were initially tentative                          | Now defined as Class 0: Normal Condition  Class 1: Optical Filter Attenuation Class 2: High Ambient Light  Class 3: Severe Obstruction / Misalignment                        | BER now comes from comparing the received payload against the **known expected text**                |
+| No emphasis on human-readable payload                           | Current payload is deliberately a **known story string**, making debugging/verification easier       |
+
+For Report:
+Do not use em-dashes ever
+Write in third person passive voice formal english
+No same /very similar descriptions twice in different sections.
+
+
+include these:
+
+NRZ-L was selected as the VLC line-coding scheme because of its simplicity and low implementation overhead. Each binary data bit is represented by a constant optical HIGH or LOW level for one fixed bit period, allowing the ESP32 transmitter to perform encoding directly through GPIO timing and the receiver to recover the bits through ADC thresholding. This provides an uncomplicated baseline for evaluating the VLC channel and calculating BER before introducing more complex line-coding or error-control techniques.
+
+
+
+Manchester encoding was initially investigated but was found to be more sensitive to timing synchronization in the prototype, particularly due to the use of different ESP32 boards at the transmitter and receiver. Since Manchester represents each data bit using two signal intervals, accurate half-bit timing is required for reliable decoding. NRZ-L was therefore selected as the baseline line-coding scheme because each bit is represented by a single fixed-duration optical level, reducing timing and decoding complexity while providing sufficient performance for the controlled VLC experiments.
+
+Here is the locked-in, finalized 10-figure sequence for the report:
+
+Hardware Implementation
+
+Figure 1: Transmitter (TX) Schematic
+
+Figure 2: Receiver (RX) Schematic
+
+Dataset & Feature Analysis
+
+Figure 3: Dataset Class Distribution
+
+Figure 4: Feature Distribution
+
+Model Training & Evaluation
+
+Figure 5: Training and Validation Metrics (Accuracy/Loss across epochs)
+
+Figure 6: Classification Confusion Matrix (Training/Testing phase)
+
+Figure 7: Per-Class Diagnostic Performance (Bar chart/table of Precision, Recall, and F1-score)
+
+Edge-AI Deployment & Results
+
+Figure 8: Edge-AI Quantization Workflow (Flowchart)
+
+
+Figure 9: Final Output Visualization  (Generated from final hardware data, Aggregate confidence heatmap)
